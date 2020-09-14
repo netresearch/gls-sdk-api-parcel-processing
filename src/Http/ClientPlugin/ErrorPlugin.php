@@ -36,33 +36,25 @@ final class ErrorPlugin implements Plugin
     /**
      * Returns the formatted error message.
      *
-     * @see https://tools.ietf.org/html/rfc7807
-     *
      * @param int $statusCode The response status code
      * @param string $reasonPhrase The response reason phrase
-     * @param string[]|string[][] $responseData The response data in application/problem+json format
+     * @param string[][] $responseData The error response data
      * @return string
      */
     private function formatErrorMessage(int $statusCode, string $reasonPhrase, array $responseData): string
     {
-        if (isset($responseData['title']) && is_string($responseData['title'])) {
-            $title = sprintf('[%s] %s. ', $statusCode, $responseData['title']);
-        } else {
-            $title = sprintf('[%s] %s. ', $statusCode, $reasonPhrase);
+        if (empty($responseData['errors'])) {
+            return "[$statusCode] $reasonPhrase";
         }
 
-        if (!isset($responseData['invalidParams']) || !is_array($responseData['invalidParams'])) {
-            return $title;
-        }
-
-        $issues = array_map(
-            function (array $issue) {
-                return sprintf('%s (%s): %s.', $issue['name'], $issue['path'], $issue['reason']);
+        $errorMessages = array_map(
+            function (array $error) {
+                return sprintf('[%s] %s – %s', $error['exitCode'], $error['exitMessage'], $error['description']);
             },
-            $responseData['invalidParams']
+            $responseData['errors']
         );
 
-        return $title . implode(' ', $issues);
+        return implode(" | ", $errorMessages);
     }
 
     /**
