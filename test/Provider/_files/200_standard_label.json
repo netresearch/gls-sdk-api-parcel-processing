@@ -1,0 +1,15 @@
+{
+  "labels": [
+    "JVBERi0xLjQKJevcljQ3OTg4CiUlRU9GCg=="
+  ],
+  "parcels": [
+    {
+      "parcelNumber": "12345678900",
+      "trackId": "YY99XXX9",
+      "location": "https://qs.gls-group.eu/track/YY99XXX0"
+    }
+  ],
+  "returns": [],
+  "location": "https://qs.gls-group.eu/track/YY99XXX0",
+  "consignmentId": "12345678900"
+}

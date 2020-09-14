@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "exitCode": "0004",
+      "exitMessage": "Input validation error.",
+      "description": "An error occurred when validating input: ShipperId is invalid. [919bda4b-a521-417f-b2c5-1924517503a6]"
+    }
+  ]
+}

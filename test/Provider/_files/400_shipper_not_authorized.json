@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "exitCode": "0004",
+      "exitMessage": "Input validation error.",
+      "description": "An error occurred when validating input: The provided shipper is not allowed to create shipments. [0f507f84-a9f9-49a6-b80a-1bee05602fb4]"
+    }
+  ]
+}

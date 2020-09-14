@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "exitCode": "0009",
+      "exitMessage": "Unauthorized.",
+      "description": "Wrong username or password. [8655af90-340b-4e8e-a11d-58d23a723493]"
+    }
+  ]
+}

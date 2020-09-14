@@ -8,7 +8,11 @@ declare(strict_types=1);
 
 namespace GlsGermany\Sdk\ParcelProcessing\Service;
 
+use GlsGermany\Sdk\ParcelProcessing\Api\Data\ShipmentInterface;
 use GlsGermany\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
+use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedErrorException;
+use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
+use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\ShipmentResponseMapper;
 use GlsGermany\Sdk\ParcelProcessing\Serializer\JsonSerializer;
 use Http\Client\HttpClient;
@@ -63,5 +67,33 @@ class ShipmentService implements ShipmentServiceInterface
         $this->requestFactory = $requestFactory;
         $this->streamFactory = $streamFactory;
         $this->responseMapper = $responseMapper;
+    }
+
+    public function createShipment(\JsonSerializable $shipmentRequest): ShipmentInterface
+    {
+        $uri = $this->baseUrl . self::RESOURCE;
+
+        try {
+            $payload = $this->serializer->encode($shipmentRequest);
+            $stream = $this->streamFactory->createStream($payload);
+
+            $httpRequest = $this->requestFactory->createRequest('POST', $uri)->withBody($stream);
+
+            $response = $this->client->sendRequest($httpRequest);
+            $responseJson = (string) $response->getBody();
+
+            /** @var CreateShipmentResponseType $shipmentResponse */
+            $shipmentResponse = $this->serializer->decode($responseJson, CreateShipmentResponseType::class);
+        } catch (DetailedErrorException $exception) {
+            if ($exception->getCode() === 401) {
+                throw ServiceExceptionFactory::createAuthenticationException($exception);
+            }
+
+            throw ServiceExceptionFactory::createDetailedServiceException($exception);
+        } catch (\Throwable $exception) {
+            throw ServiceExceptionFactory::create($exception);
+        }
+
+        return $this->responseMapper->map($shipmentResponse);
     }
 }

@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "exitCode": "9999",
+      "exitMessage": "Server exception.",
+      "description": "Unexpected server error. [9e761eaf-226a-4aa9-96d1-20969a9768a0]"
+    }
+  ]
+}

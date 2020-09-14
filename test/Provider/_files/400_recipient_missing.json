@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "exitCode": "0004",
+      "exitMessage": "Input validation error.",
+      "description": "An error occurred when validating input: We need at least a delivery or pickup address to be able to create a shipment. [187ba05e-36ce-4b35-b287-f4f24936fb45]"
+    }
+  ]
+}
