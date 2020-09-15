@@ -28,7 +28,7 @@ class Service implements \JsonSerializable
     /**
      * @param ServiceInfo[] $infos
      */
-    public function setReferences(array $infos): void
+    public function setServiceInfo(array $infos): void
     {
         $this->infos = $infos;
     }

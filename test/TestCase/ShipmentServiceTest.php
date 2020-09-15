@@ -8,9 +8,12 @@ declare(strict_types=1);
 
 namespace GlsGermany\Sdk\ParcelProcessing\Service;
 
+use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
 use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceException;
 use GlsGermany\Sdk\ParcelProcessing\Http\HttpServiceFactory;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentRequestType;
+use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
+use GlsGermany\Sdk\ParcelProcessing\RequestBuilder\ShipmentRequestBuilder;
 use GlsGermany\Sdk\ParcelProcessing\Test\Provider\ShipmentServiceTestProvider;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Mock\Client;
@@ -19,11 +22,18 @@ use Psr\Log\Test\TestLogger;
 
 class ShipmentServiceTest extends TestCase
 {
+    /**
+     * @return CreateShipmentResponseType[][]|string[][]
+     * @throws RequestValidatorException
+     */
     public function labelDataProvider()
     {
         return [
             'standard' => ShipmentServiceTestProvider::standardLabel(),
-            'multi-piece' => ShipmentServiceTestProvider::multiPieceLabel()
+            'cod' => ShipmentServiceTestProvider::codLabel(),
+            'flex-delivery' => ShipmentServiceTestProvider::flexDeliveryLabel(),
+            'multi-piece' => ShipmentServiceTestProvider::multiPieceLabel(),
+            'enclosed-return' => ShipmentServiceTestProvider::enclosedReturnLabel(),
         ];
     }
 
@@ -37,7 +47,7 @@ class ShipmentServiceTest extends TestCase
      * @param string $responseBody
      * @throws ServiceException
      */
-    public function requestStandardLabel(CreateShipmentRequestType $shipmentRequest, string $responseBody)
+    public function requestLabel(CreateShipmentRequestType $shipmentRequest, string $responseBody)
     {
         $logger = new TestLogger();
         $httpClient = new Client();
@@ -58,33 +68,9 @@ class ShipmentServiceTest extends TestCase
     }
 
     /**
-     * Request a standard merchant-to-consumer label with consumer notification.
-     */
-    public function requestFlexDeliveryLabel()
-    {
-
-    }
-
-    /**
-     * Request a merchant-to-consumer label with COD payment.
-     */
-    public function requestCODLabel()
-    {
-
-    }
-
-    /**
      * Request a merchant-to-consumer label with parcel shop delivery.
      */
     public function requestShopDeliveryLabel()
-    {
-
-    }
-
-    /**
-     * Request a merchant-to-consumer label with enclosed return shipment label.
-     */
-    public function requestEnclosedReturnLabel()
     {
 
     }

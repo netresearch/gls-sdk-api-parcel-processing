@@ -12,6 +12,8 @@ use GlsGermany\Sdk\ParcelProcessing\Api\ShipmentRequestBuilderInterface;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentRequestType;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Address;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Parcel;
+use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Service;
+use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\ServiceInfo;
 
 class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
 {
@@ -39,7 +41,12 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
 
     public function setShipmentDate(\DateTime $shipmentDate): ShipmentRequestBuilderInterface
     {
-        // TODO: Implement setShipmentDate() method.
+        $timezone = new \DateTimeZone('Europe/Berlin');
+        $convertDate = $shipmentDate->setTimezone($timezone)->format('Y-m-d');
+
+        $this->data['shipmentDetails']['date'] = $convertDate;
+
+        return $this;
     }
 
     public function setShipperAddress(
@@ -57,19 +64,19 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         string $companyUnit = null,
         string $comment = null
     ): ShipmentRequestBuilderInterface {
-        $this->data['shipper']['country'] = $country;
-        $this->data['shipper']['postalCode'] = $postalCode;
-        $this->data['shipper']['city'] = $city;
-        $this->data['shipper']['street'] = $street;
-        $this->data['shipper']['company'] = $company;
-        $this->data['shipper']['email'] = $email;
-        $this->data['shipper']['phone'] = $phone;
-        $this->data['shipper']['mobile'] = $mobile;
-        $this->data['shipper']['state'] = $state;
-        $this->data['shipper']['companyContactPerson'] = $companyContactPerson;
-        $this->data['shipper']['companyDivision'] = $companyDivision;
-        $this->data['shipper']['companyUnit'] = $companyUnit;
-        $this->data['shipper']['comment'] = $comment;
+        $this->data['shipperAddress']['country'] = $country;
+        $this->data['shipperAddress']['postalCode'] = $postalCode;
+        $this->data['shipperAddress']['city'] = $city;
+        $this->data['shipperAddress']['street'] = $street;
+        $this->data['shipperAddress']['company'] = $company;
+        $this->data['shipperAddress']['email'] = $email;
+        $this->data['shipperAddress']['phone'] = $phone;
+        $this->data['shipperAddress']['mobile'] = $mobile;
+        $this->data['shipperAddress']['state'] = $state;
+        $this->data['shipperAddress']['companyContactPerson'] = $companyContactPerson;
+        $this->data['shipperAddress']['companyDivision'] = $companyDivision;
+        $this->data['shipperAddress']['companyUnit'] = $companyUnit;
+        $this->data['shipperAddress']['comment'] = $comment;
 
         return $this;
     }
@@ -88,23 +95,23 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         string $state = null,
         string $comment = null
     ): ShipmentRequestBuilderInterface {
-        $this->data['recipient']['country'] = $country;
-        $this->data['recipient']['postalCode'] = $postalCode;
-        $this->data['recipient']['city'] = $city;
-        $this->data['recipient']['street'] = $street;
-        $this->data['recipient']['name'] = $name;
-        $this->data['recipient']['company'] = $company;
-        $this->data['recipient']['email'] = $email;
-        $this->data['recipient']['phone'] = $phone;
-        $this->data['recipient']['mobile'] = $mobile;
-        $this->data['recipient']['contactPerson'] = $contactPerson;
-        $this->data['recipient']['state'] = $state;
-        $this->data['recipient']['comment'] = $comment;
+        $this->data['recipientAddress']['country'] = $country;
+        $this->data['recipientAddress']['postalCode'] = $postalCode;
+        $this->data['recipientAddress']['city'] = $city;
+        $this->data['recipientAddress']['street'] = $street;
+        $this->data['recipientAddress']['name'] = $name;
+        $this->data['recipientAddress']['company'] = $company;
+        $this->data['recipientAddress']['email'] = $email;
+        $this->data['recipientAddress']['phone'] = $phone;
+        $this->data['recipientAddress']['mobile'] = $mobile;
+        $this->data['recipientAddress']['contactPerson'] = $contactPerson;
+        $this->data['recipientAddress']['state'] = $state;
+        $this->data['recipientAddress']['comment'] = $comment;
 
         return $this;
     }
 
-    public function requestReturnLabel(
+    public function setReturnAddress(
         string $country,
         string $postalCode,
         string $city,
@@ -119,7 +126,21 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         string $companyUnit = null,
         string $comment = null
     ): ShipmentRequestBuilderInterface {
-        // TODO: Implement requestReturnLabel() method.
+        $this->data['returnAddress']['country'] = $country;
+        $this->data['returnAddress']['postalCode'] = $postalCode;
+        $this->data['returnAddress']['city'] = $city;
+        $this->data['returnAddress']['street'] = $street;
+        $this->data['returnAddress']['company'] = $company;
+        $this->data['returnAddress']['email'] = $email;
+        $this->data['returnAddress']['phone'] = $phone;
+        $this->data['returnAddress']['mobile'] = $mobile;
+        $this->data['returnAddress']['state'] = $state;
+        $this->data['returnAddress']['companyContactPerson'] = $companyContactPerson;
+        $this->data['returnAddress']['companyDivision'] = $companyDivision;
+        $this->data['returnAddress']['companyUnit'] = $companyUnit;
+        $this->data['returnAddress']['comment'] = $comment;
+
+        return $this;
     }
 
     public function requestPickup(
@@ -141,50 +162,66 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         // TODO: Implement requestPickup() method.
     }
 
+    public function requestFlexDeliveryService(): ShipmentRequestBuilderInterface
+    {
+        $this->data['services']['flexdelivery'] = true;
+
+        return $this;
+    }
+
     public function setCustomsDetails(int $incoterm): ShipmentRequestBuilderInterface
     {
-        // TODO: Implement setCustomsDetails() method.
+        $this->data['customsDetails']['incoterm'] = $incoterm;
+
+        return $this;
     }
 
     public function addParcel(
         float $weightInKg,
         string $reference = null,
         string $returnReference = null,
+        float $codAmount = null,
+        string $codReference = null,
         string $comment = null
     ): ShipmentRequestBuilderInterface {
         $this->data['parcels'][] = [
             'weight' => $weightInKg,
             'reference' => $reference,
             'returnReference' => $returnReference,
+            'codAmount' => $codAmount,
+            'codReference' => $codReference,
             'comment' => $comment,
         ];
 
         return $this;
     }
 
-    public function setLabelFormatPng(): ShipmentRequestBuilderInterface
+    public function setLabelFormat(string $labelFormat = self::LABEL_FORMAT_PDF): ShipmentRequestBuilderInterface
     {
-        // TODO: Implement setLabelFormatPng() method.
+        $this->data['labelFormat'] = $labelFormat;
+
+        return $this;
     }
 
-    public function setLabelSizeA5(): ShipmentRequestBuilderInterface
+    public function setLabelSize(string $labelSize = self::LABEL_SIZE_A6): ShipmentRequestBuilderInterface
     {
-        // TODO: Implement setLabelSizeA5() method.
-    }
+        $this->data['labelSize'] = $labelSize;
 
-    public function setLabelSizeA4(): ShipmentRequestBuilderInterface
-    {
-        // TODO: Implement setLabelSizeA4() method.
+        return $this;
     }
 
     public function create()
     {
         ShipmentRequestValidator::validate($this->data);
 
+        $isReturnLabelRequested = isset($this->data['returnAddress']);
+
         $parcels = [];
         $returnParcels = [];
 
         foreach ($this->data['parcels'] as $parcelData) {
+            $services = [];
+
             $parcel = new Parcel($parcelData['weight']);
 
             if (!empty($parcelData['comment'])) {
@@ -195,52 +232,113 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
                 $parcel->setReferences([$parcelData['reference']]);
             }
 
-            //todo(nr): decide whether to add a return parcel or not
-            //todo(nr): decide whether to attach service(s) or not
+            if (!empty($parcelData['codAmount'])) {
+                $codInfo = [
+                    new ServiceInfo('amount', (string) $parcelData['codAmount'])
+                ];
+                if (!empty($parcelData['codReference'])) {
+                    $codInfo[] = new ServiceInfo('reference', $parcelData['codReference'] ?? '');
+                }
+                $codService = new Service('cashondelivery');
+                $codService->setServiceInfo($codInfo);
 
+                $services[] = $codService;
+            }
+
+            if ($isReturnLabelRequested) {
+                $services[] = new Service('shopreturnservice');
+
+                $returnParcel = new Parcel($parcelData['weight']);
+                if (!empty($parcelData['returnReference'])) {
+                    $returnParcel->setReferences([$parcelData['returnReference']]);
+                }
+                $returnParcels[] = $returnParcel;
+            }
+
+            if (isset($this->data['services'], $this->data['services']['flexdelivery'])) {
+                $services[] = new Service('flexdeliveryservice');
+            }
+
+            $parcel->setServices($services);
             $parcels[] = $parcel;
         }
 
         $request = new CreateShipmentRequestType($this->data['account']['shipperId'], $parcels);
         $request->setReturnParcels($returnParcels);
 
-        if (!empty($this->data['shipper'])) {
+        if (!empty($this->data['shipperAddress'])) {
             $shipper = new Address(
-                $this->data['shipper']['company'],
-                $this->data['shipper']['street'],
-                $this->data['shipper']['country'],
-                $this->data['shipper']['postalCode'],
-                $this->data['shipper']['city']
+                $this->data['shipperAddress']['company'],
+                $this->data['shipperAddress']['street'],
+                $this->data['shipperAddress']['country'],
+                $this->data['shipperAddress']['postalCode'],
+                $this->data['shipperAddress']['city']
             );
-            $shipper->setEmail($this->data['shipper']['email'] ?? '');
-            $shipper->setPhone($this->data['shipper']['phone'] ?? '');
-            $shipper->setMobile($this->data['shipper']['mobile'] ?? '');
-            $shipper->setProvince($this->data['shipper']['state'] ?? '');
-            $shipper->setContact($this->data['shipper']['companyContactPerson'] ?? '');
-            $shipper->setName2($this->data['shipper']['companyDivision'] ?? '');
-            $shipper->setName3($this->data['shipper']['companyUnit'] ?? '');
-            $shipper->setComments($this->data['shipper']['comment'] ?? '');
+            $shipper->setEmail($this->data['shipperAddress']['email'] ?? '');
+            $shipper->setPhone($this->data['shipperAddress']['phone'] ?? '');
+            $shipper->setMobile($this->data['shipperAddress']['mobile'] ?? '');
+            $shipper->setProvince($this->data['shipperAddress']['state'] ?? '');
+            $shipper->setContact($this->data['shipperAddress']['companyContactPerson'] ?? '');
+            $shipper->setName2($this->data['shipperAddress']['companyDivision'] ?? '');
+            $shipper->setName3($this->data['shipperAddress']['companyUnit'] ?? '');
+            $shipper->setComments($this->data['shipperAddress']['comment'] ?? '');
 
             $request->setShipperAddress($shipper);
         }
 
-        if (!empty($this->data['recipient'])) {
+        if (!empty($this->data['recipientAddress'])) {
             $recipient = new Address(
-                $this->data['recipient']['name'],
-                $this->data['recipient']['street'],
-                $this->data['recipient']['country'],
-                $this->data['recipient']['postalCode'],
-                $this->data['recipient']['city']
+                $this->data['recipientAddress']['name'],
+                $this->data['recipientAddress']['street'],
+                $this->data['recipientAddress']['country'],
+                $this->data['recipientAddress']['postalCode'],
+                $this->data['recipientAddress']['city']
             );
-            $recipient->setEmail($this->data['recipient']['email'] ?? '');
-            $recipient->setPhone($this->data['recipient']['phone'] ?? '');
-            $recipient->setMobile($this->data['recipient']['mobile'] ?? '');
-            $recipient->setProvince($this->data['recipient']['state'] ?? '');
-            $recipient->setContact($this->data['recipient']['contactPerson'] ?? '');
-            $recipient->setName2($this->data['recipient']['company'] ?? '');
-            $recipient->setComments($this->data['recipient']['comment'] ?? '');
+            $recipient->setEmail($this->data['recipientAddress']['email'] ?? '');
+            $recipient->setPhone($this->data['recipientAddress']['phone'] ?? '');
+            $recipient->setMobile($this->data['recipientAddress']['mobile'] ?? '');
+            $recipient->setProvince($this->data['recipientAddress']['state'] ?? '');
+            $recipient->setContact($this->data['recipientAddress']['contactPerson'] ?? '');
+            $recipient->setName2($this->data['recipientAddress']['company'] ?? '');
+            $recipient->setComments($this->data['recipientAddress']['comment'] ?? '');
 
             $request->setDeliveryAddress($recipient);
+        }
+
+        if ($isReturnLabelRequested) {
+            $return = new Address(
+                $this->data['returnAddress']['company'],
+                $this->data['returnAddress']['street'],
+                $this->data['returnAddress']['country'],
+                $this->data['returnAddress']['postalCode'],
+                $this->data['returnAddress']['city']
+            );
+            $return->setEmail($this->data['returnAddress']['email'] ?? '');
+            $return->setPhone($this->data['returnAddress']['phone'] ?? '');
+            $return->setMobile($this->data['returnAddress']['mobile'] ?? '');
+            $return->setProvince($this->data['returnAddress']['state'] ?? '');
+            $return->setContact($this->data['returnAddress']['companyContactPerson'] ?? '');
+            $return->setName2($this->data['returnAddress']['companyDivision'] ?? '');
+            $return->setName3($this->data['returnAddress']['companyUnit'] ?? '');
+            $return->setComments($this->data['returnAddress']['comment'] ?? '');
+
+            $request->setReturnAddress($return);
+        }
+
+        if (isset($this->data['shipmentDetails'], $this->data['shipmentDetails']['date'])) {
+            $request->setShipmentDate($this->data['shipmentDetails']['date']);
+        }
+
+        if (isset($this->data['customsDetails'], $this->data['customsDetails']['incoterm'])) {
+            $request->setIncoterm($this->data['customsDetails']['incoterm']);
+        }
+
+        if (!empty($this->data['labelSize'])) {
+            $request->setLabelSize($this->data['labelSize']);
+        }
+
+        if (!empty($this->data['labelFormat'])) {
+            $request->setLabelFormat($this->data['labelFormat']);
         }
 
         $this->data = [];

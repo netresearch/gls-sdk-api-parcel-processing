@@ -15,6 +15,12 @@ use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
  */
 interface ShipmentRequestBuilderInterface
 {
+    public const LABEL_FORMAT_PDF = 'PDF';
+    public const LABEL_FORMAT_PNG = 'PNG';
+    public const LABEL_SIZE_A6 = 'A6';
+    public const LABEL_SIZE_A5 = 'A5';
+    public const LABEL_SIZE_A4 = 'A4';
+
     /**
      * @param string $shipperId Customer ID / Contact ID as provided by depot or given in the GLS account settings
      * @param string|null $brokerReference Reference to the GLS Partner (optional)
@@ -104,7 +110,7 @@ interface ShipmentRequestBuilderInterface
     ): ShipmentRequestBuilderInterface;
 
     /**
-     * Book the ShopReturnService by provide an address where the parcel should be returned to.
+     * Book the ShopReturnService by providing an address where the parcel should be returned to.
      *
      * This will yield an enclosed return shipment label as additional label page.
      *
@@ -123,7 +129,7 @@ interface ShipmentRequestBuilderInterface
      * @param string|null $comment
      * @return ShipmentRequestBuilderInterface
      */
-    public function requestReturnLabel(
+    public function setReturnAddress(
         string $country,
         string $postalCode,
         string $city,
@@ -176,6 +182,13 @@ interface ShipmentRequestBuilderInterface
     ): ShipmentRequestBuilderInterface;
 
     /**
+     * Book FlexDeliveryService.
+     *
+     * @return ShipmentRequestBuilderInterface
+     */
+    public function requestFlexDeliveryService(): ShipmentRequestBuilderInterface;
+
+    /**
      * Set the International Commercial Terms (Incoterm) code.
      *
      * For valid values, refer to the GLS documentation.
@@ -191,6 +204,8 @@ interface ShipmentRequestBuilderInterface
      * @param float $weightInKg
      * @param string|null $reference Parcel reference (optional)
      * @param string|null $returnReference Return reference for the parcel (optional)
+     * @param float|null $codAmount Monetary value to be collected by the courier upon delivery (optional)
+     * @param string|null $codReference Reference for cash on delivery payment (conditionally mandatory)
      * @param string|null $comment Comment (optional)
      * @return ShipmentRequestBuilderInterface
      */
@@ -198,29 +213,26 @@ interface ShipmentRequestBuilderInterface
         float $weightInKg,
         string $reference = null,
         string $returnReference = null,
+        float $codAmount = null,
+        string $codReference = null,
         string $comment = null
     ): ShipmentRequestBuilderInterface;
 
     /**
-     * Change label format to PNG. By default, a PDF label will be returned.
+     * Set label format. By default, a PDF label will be created.
      *
+     * @param string $labelFormat
      * @return ShipmentRequestBuilderInterface
      */
-    public function setLabelFormatPng(): ShipmentRequestBuilderInterface;
+    public function setLabelFormat(string $labelFormat = self::LABEL_FORMAT_PDF): ShipmentRequestBuilderInterface;
 
     /**
-     * Change label size to A5. By default, an A6 label will be returned.
+     * Change label size. By default, an A6 label will be created.
      *
+     * @param string $labelSize
      * @return ShipmentRequestBuilderInterface
      */
-    public function setLabelSizeA5(): ShipmentRequestBuilderInterface;
-
-    /**
-     * Change label size to A4. By default, an A6 label will be returned.
-     *
-     * @return ShipmentRequestBuilderInterface
-     */
-    public function setLabelSizeA4(): ShipmentRequestBuilderInterface;
+    public function setLabelSize(string $labelSize = self::LABEL_SIZE_A6): ShipmentRequestBuilderInterface;
 
     /**
      * Create the shipment request and reset the builder data.
