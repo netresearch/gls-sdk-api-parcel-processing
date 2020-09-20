@@ -110,6 +110,14 @@ interface ShipmentRequestBuilderInterface
     ): ShipmentRequestBuilderInterface;
 
     /**
+     * Set the receiver's parcel shop id.
+     *
+     * @param string $parcelShopId
+     * @return ShipmentRequestBuilderInterface
+     */
+    public function setParcelShopId(string $parcelShopId): ShipmentRequestBuilderInterface;
+
+    /**
      * Book the ShopReturnService by providing an address where the parcel should be returned to.
      *
      * This will yield an enclosed return shipment label as additional label page.
@@ -146,9 +154,8 @@ interface ShipmentRequestBuilderInterface
     ): ShipmentRequestBuilderInterface;
 
     /**
-     * Book Pick&ShipService or Pick&ReturnService by providing an address where the parcel should be picked up from.
+     * Book Pick&ShipService by providing an address where the parcel should be picked up from.
      *
-     * @param bool $isReturn Pick&ReturnService if true, Pick&ShipService otherwise
      * @param string $country
      * @param string $postalCode
      * @param string $city
@@ -164,8 +171,7 @@ interface ShipmentRequestBuilderInterface
      * @param string|null $comment
      * @return ShipmentRequestBuilderInterface
      */
-    public function requestPickup(
-        bool $isReturn,
+    public function setPickupAddress(
         string $country,
         string $postalCode,
         string $city,

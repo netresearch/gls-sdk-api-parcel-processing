@@ -111,6 +111,13 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         return $this;
     }
 
+    public function setParcelShopId(string $parcelShopId): ShipmentRequestBuilderInterface
+    {
+        $this->data['services']['shopdelivery'] = $parcelShopId;
+
+        return $this;
+    }
+
     public function setReturnAddress(
         string $country,
         string $postalCode,
@@ -143,8 +150,7 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         return $this;
     }
 
-    public function requestPickup(
-        bool $isReturn,
+    public function setPickupAddress(
         string $country,
         string $postalCode,
         string $city,
@@ -159,7 +165,21 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         string $companyUnit = null,
         string $comment = null
     ): ShipmentRequestBuilderInterface {
-        // TODO: Implement requestPickup() method.
+        $this->data['pickupAddress']['country'] = $country;
+        $this->data['pickupAddress']['postalCode'] = $postalCode;
+        $this->data['pickupAddress']['city'] = $city;
+        $this->data['pickupAddress']['street'] = $street;
+        $this->data['pickupAddress']['company'] = $company;
+        $this->data['pickupAddress']['email'] = $email;
+        $this->data['pickupAddress']['phone'] = $phone;
+        $this->data['pickupAddress']['mobile'] = $mobile;
+        $this->data['pickupAddress']['state'] = $state;
+        $this->data['pickupAddress']['companyContactPerson'] = $companyContactPerson;
+        $this->data['pickupAddress']['companyDivision'] = $companyDivision;
+        $this->data['pickupAddress']['companyUnit'] = $companyUnit;
+        $this->data['pickupAddress']['comment'] = $comment;
+
+        return $this;
     }
 
     public function requestFlexDeliveryService(): ShipmentRequestBuilderInterface
@@ -259,6 +279,14 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
                 $services[] = new Service('flexdeliveryservice');
             }
 
+            if (isset($this->data['services'], $this->data['services']['shopdelivery'])) {
+                $shopDeliveryService = new Service('shopdeliveryservice');
+                $shopDeliveryService->setServiceInfo([
+                    new ServiceInfo('parcelshopid', $this->data['services']['shopdelivery'])
+                ]);
+                $services[] = $shopDeliveryService;
+            }
+
             $parcel->setServices($services);
             $parcels[] = $parcel;
         }
@@ -284,6 +312,26 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
             $shipper->setComments($this->data['shipperAddress']['comment'] ?? '');
 
             $request->setShipperAddress($shipper);
+        }
+
+        if (!empty($this->data['pickupAddress'])) {
+            $pickup = new Address(
+                $this->data['pickupAddress']['company'],
+                $this->data['pickupAddress']['street'],
+                $this->data['pickupAddress']['country'],
+                $this->data['pickupAddress']['postalCode'],
+                $this->data['pickupAddress']['city']
+            );
+            $pickup->setEmail($this->data['pickupAddress']['email'] ?? '');
+            $pickup->setPhone($this->data['pickupAddress']['phone'] ?? '');
+            $pickup->setMobile($this->data['pickupAddress']['mobile'] ?? '');
+            $pickup->setProvince($this->data['pickupAddress']['state'] ?? '');
+            $pickup->setContact($this->data['pickupAddress']['companyContactPerson'] ?? '');
+            $pickup->setName2($this->data['pickupAddress']['companyDivision'] ?? '');
+            $pickup->setName3($this->data['pickupAddress']['companyUnit'] ?? '');
+            $pickup->setComments($this->data['pickupAddress']['comment'] ?? '');
+
+            $request->setPickupAddress($pickup);
         }
 
         if (!empty($this->data['recipientAddress'])) {

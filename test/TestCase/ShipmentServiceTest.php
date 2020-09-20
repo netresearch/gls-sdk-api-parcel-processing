@@ -34,6 +34,18 @@ class ShipmentServiceTest extends TestCase
             'flex-delivery' => ShipmentServiceTestProvider::flexDeliveryLabel(),
             'multi-piece' => ShipmentServiceTestProvider::multiPieceLabel(),
             'enclosed-return' => ShipmentServiceTestProvider::enclosedReturnLabel(),
+            'parcel-shop' => ShipmentServiceTestProvider::shopDeliveryLabel(),
+        ];
+    }
+
+    /**
+     * @return CreateShipmentResponseType[][]|string[][]
+     * @throws RequestValidatorException
+     */
+    public function pickupShipmentDataProvider()
+    {
+        return [
+            'pickandship' => ShipmentServiceTestProvider::pickAndShipLabel(),
         ];
     }
 
@@ -68,19 +80,35 @@ class ShipmentServiceTest extends TestCase
     }
 
     /**
-     * Request a merchant-to-consumer label with parcel shop delivery.
-     */
-    public function requestShopDeliveryLabel()
-    {
-
-    }
-
-    /**
      * Request a supplier-to-consumer label with pickup at the manufacturer/retailer/wholesaler.
+     *
+     * Courier will bring the label to the pickup location, thus no shipment label in response.
+     *
+     * @test
+     * @dataProvider pickupShipmentDataProvider
+     *
+     * @param CreateShipmentRequestType $shipmentRequest
+     * @param string $responseBody
+     * @throws ServiceException
      */
-    public function requestPickAndShipLabel()
+    public function requestPickAndShipLabel(CreateShipmentRequestType $shipmentRequest, string $responseBody)
     {
+        $logger = new TestLogger();
+        $httpClient = new Client();
+        $responseFactory = Psr17FactoryDiscovery::findResponseFactory();
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
 
+        $httpClient->setDefaultResponse(
+            $responseFactory
+                ->createResponse(200, 'OK')
+                ->withBody($streamFactory->createStream($responseBody))
+        );
+
+        $serviceFactory = new HttpServiceFactory($httpClient);
+        $service = $serviceFactory->createShipmentService('u5er', 'p4ss', $logger, true);
+
+        $shipment = $service->createShipment($shipmentRequest);
+        self::assertEmpty($shipment->getLabel());
     }
 
     /**

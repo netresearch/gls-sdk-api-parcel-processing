@@ -156,4 +156,67 @@ class ShipmentServiceTestProvider
             'response' => \file_get_contents(__DIR__ . '/_files/200_enclosed_return_label.json'),
         ];
     }
+
+    /**
+     * Provide request/response for a domestic label request with delivery to a given parcel shop.
+     *
+     * @return CreateShipmentResponseType[]|string[]
+     * @throws RequestValidatorException
+     */
+    public static function shopDeliveryLabel()
+    {
+        $requestBuilder = new ShipmentRequestBuilder();
+        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setParcelShopId('2760196671');
+        $requestBuilder->setRecipientAddress(
+            $country = 'DE',
+            $postalCode = '04229',
+            $city = 'Leipzig',
+            $street = 'Nonnenstraße 11d',
+            $name = 'Christoph Aßmann',
+            null,
+            $email = 'christoph.assmann@netresearch.de',
+            null,
+            null,
+            $contactPerson = 'Christoph Aßmann'
+        );
+        $requestBuilder->addParcel(0.95);
+
+        return [
+            'request' => $requestBuilder->create(),
+            'response' => \file_get_contents(__DIR__ . '/_files/200_standard_label.json'),
+        ];
+    }
+
+    /**
+     * Provide request/response for a domestic label request with pickup from given address.
+     *
+     * @return CreateShipmentResponseType[]|string[]
+     * @throws RequestValidatorException
+     */
+    public static function pickAndShipLabel()
+    {
+        $requestBuilder = new ShipmentRequestBuilder();
+        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setPickupAddress(
+            $country = 'DE',
+            $postalCode = '04103',
+            $city = 'Leipzig',
+            $street = 'Brüderstr. 6',
+            $name = 'Corsoela GmbH'
+        );
+        $requestBuilder->setRecipientAddress(
+            $country = 'DE',
+            $postalCode = '04229',
+            $city = 'Leipzig',
+            $street = 'Nonnenstraße 11d',
+            $name = 'Christoph Aßmann'
+        );
+        $requestBuilder->addParcel(0.95);
+
+        return [
+            'request' => $requestBuilder->create(),
+            'response' => \file_get_contents(__DIR__ . '/_files/200_pickandship_label.json'),
+        ];
+    }
 }

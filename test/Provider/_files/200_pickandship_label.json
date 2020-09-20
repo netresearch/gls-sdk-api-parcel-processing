@@ -1,0 +1,13 @@
+{
+  "labels": [],
+  "parcels": [
+    {
+      "parcelNumber": "12345678904",
+      "trackId": "YY99XXX4",
+      "location": "https://qs.gls-group.eu/track/YY99XXX4"
+    }
+  ],
+  "returns": [],
+  "location": "https://qs.gls-group.eu/track/YY99XXX4",
+  "consignmentId": "12345678904"
+}
