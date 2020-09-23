@@ -9,7 +9,13 @@ declare(strict_types=1);
 namespace GlsGermany\Sdk\ParcelProcessing\Service;
 
 use GlsGermany\Sdk\ParcelProcessing\Api\CancellationServiceInterface;
-use GlsGermany\Sdk\ParcelProcessing\Model\Cancellation\CancellationResponseMapper;
+use GlsGermany\Sdk\ParcelProcessing\Exception\AuthenticationException;
+use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedErrorException;
+use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedServiceException;
+use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceException;
+use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
+use GlsGermany\Sdk\ParcelProcessing\Model\Cancellation\CancelParcelsResponseType;
+use GlsGermany\Sdk\ParcelProcessing\Model\Cancellation\ResponseType\Status;
 use GlsGermany\Sdk\ParcelProcessing\Serializer\JsonSerializer;
 use Http\Client\HttpClient;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -44,24 +50,73 @@ class CancellationService implements CancellationServiceInterface
      */
     private $streamFactory;
 
-    /**
-     * @var CancellationResponseMapper
-     */
-    private $responseMapper;
-
     public function __construct(
         HttpClient $client,
         string $baseUrl,
         JsonSerializer $serializer,
         RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory,
-        CancellationResponseMapper $responseMapper
+        StreamFactoryInterface $streamFactory
     ) {
         $this->client = $client;
         $this->baseUrl = $baseUrl;
         $this->serializer = $serializer;
         $this->requestFactory = $requestFactory;
         $this->streamFactory = $streamFactory;
-        $this->responseMapper = $responseMapper;
+    }
+
+    /**
+     * @param string[] $parcelIds
+     * @return string[]
+     * @throws AuthenticationException
+     * @throws DetailedServiceException
+     * @throws ServiceException
+     */
+    private function cancel(array $parcelIds): array
+    {
+        $uri = sprintf('%s%s/parcelids/%s', $this->baseUrl, self::RESOURCE, implode(',', $parcelIds));
+
+        try {
+            $httpRequest = $this->requestFactory->createRequest('PUT', $uri);
+            $response = $this->client->sendRequest($httpRequest);
+            $responseJson = (string) $response->getBody();
+
+            /** @var CancelParcelsResponseType $cancellationResponse */
+            $cancellationResponse = $this->serializer->decode($responseJson, CancelParcelsResponseType::class);
+        } catch (DetailedErrorException $exception) {
+            if ($exception->getCode() === 401) {
+                throw ServiceExceptionFactory::createAuthenticationException($exception);
+            }
+
+            throw ServiceExceptionFactory::createDetailedServiceException($exception);
+        } catch (\Throwable $exception) {
+            throw ServiceExceptionFactory::create($exception);
+        }
+
+        return array_reduce(
+            $cancellationResponse->getStatus(),
+            function (array $cancelled, Status $status) {
+                if ($status->getCode() === 'E000') {
+                    $cancelled[] = $status->getParcelId();
+                }
+                return $cancelled;
+            },
+            []
+        );
+    }
+
+    public function cancelParcels(array $parcelIds): array
+    {
+        if (empty($parcelIds)) {
+            throw new DetailedServiceException('No parcels given to cancel.');
+        }
+
+        $cancelled = array_map(
+            function (array $parcelIds) {
+                return $this->cancel($parcelIds);
+            },
+            array_chunk($parcelIds, 20)
+        );
+
+        return array_reduce($cancelled, 'array_merge', []);
     }
 }

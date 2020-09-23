@@ -13,7 +13,6 @@ use GlsGermany\Sdk\ParcelProcessing\Api\ServiceFactoryInterface;
 use GlsGermany\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
 use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
 use GlsGermany\Sdk\ParcelProcessing\Http\ClientPlugin\ErrorPlugin;
-use GlsGermany\Sdk\ParcelProcessing\Model\Cancellation\CancellationResponseMapper;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\ShipmentResponseMapper;
 use GlsGermany\Sdk\ParcelProcessing\Serializer\JsonSerializer;
 use GlsGermany\Sdk\ParcelProcessing\Service\CancellationService;
@@ -21,7 +20,6 @@ use GlsGermany\Sdk\ParcelProcessing\Service\ShipmentService;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
 use Http\Client\Common\Plugin\ContentLengthPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
-use Http\Client\Common\Plugin\HeaderSetPlugin;
 use Http\Client\Common\Plugin\LoggerPlugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
@@ -110,9 +108,9 @@ class HttpServiceFactory implements ServiceFactoryInterface
         $client = new PluginClient(
             $this->httpClient,
             [
-                new HeaderSetPlugin(array_filter($headers)),
-                new ContentLengthPlugin(),
+                new HeaderDefaultsPlugin(array_filter($headers)),
                 new AuthenticationPlugin(new BasicAuth($username, $password)),
+                new ContentLengthPlugin(),
                 new LoggerPlugin($logger, new FullHttpMessageFormatter(null)),
                 new ErrorPlugin(),
             ]
@@ -130,8 +128,7 @@ class HttpServiceFactory implements ServiceFactoryInterface
             $sandboxMode ? self::SANDBOX_BASE_URL : self::PRODUCTION_BASE_URL,
             new JsonSerializer(),
             $requestFactory,
-            $streamFactory,
-            new CancellationResponseMapper()
+            $streamFactory
         );
     }
 }

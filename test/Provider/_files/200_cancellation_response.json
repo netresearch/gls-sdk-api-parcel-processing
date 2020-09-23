@@ -1,0 +1,21 @@
+{
+  "status": [
+    {
+      "parcelId": "12345678901",
+      "deliveryState": "PREADVICE",
+      "code": "E000",
+      "info": "Cancelled successfully."
+    },
+    {
+      "parcelId": "1234567890",
+      "code": "E001",
+      "info": "Invalid Parcel Id."
+    },
+    {
+      "parcelId": "12345678902",
+      "deliveryState": "PREADVICE",
+      "code": "E000",
+      "info": "Cancelled successfully."
+    }
+  ]
+}
