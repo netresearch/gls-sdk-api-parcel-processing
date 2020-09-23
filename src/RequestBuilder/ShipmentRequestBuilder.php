@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace GlsGermany\Sdk\ParcelProcessing\RequestBuilder;
 
+use GlsGermany\Sdk\ParcelProcessing\Api\LabelRequestBuilderInterface;
 use GlsGermany\Sdk\ParcelProcessing\Api\ShipmentRequestBuilderInterface;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentRequestType;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Address;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Parcel;
+use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\ReturnParcel;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Service;
 use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\ServiceInfo;
 
@@ -27,16 +29,18 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
     public function setShipperAccount(
         string $shipperId,
         string $brokerReference = null
-    ): ShipmentRequestBuilderInterface {
+    ): LabelRequestBuilderInterface {
         $this->data['account']['shipperId'] = $shipperId;
         $this->data['account']['brokerReference'] = $brokerReference;
 
         return $this;
     }
 
-    public function setReferenceNumbers(array $references): ShipmentRequestBuilderInterface
+    public function setReferenceNumbers(array $references): LabelRequestBuilderInterface
     {
-        // TODO: Implement setReferenceNumbers() method.
+        $this->data['shipmentDetails']['references'] = $references;
+
+        return $this;
     }
 
     public function setShipmentDate(\DateTime $shipmentDate): ShipmentRequestBuilderInterface
@@ -189,7 +193,7 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         return $this;
     }
 
-    public function setCustomsDetails(int $incoterm): ShipmentRequestBuilderInterface
+    public function setCustomsDetails(int $incoterm): LabelRequestBuilderInterface
     {
         $this->data['customsDetails']['incoterm'] = $incoterm;
 
@@ -216,21 +220,21 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         return $this;
     }
 
-    public function setLabelFormat(string $labelFormat = self::LABEL_FORMAT_PDF): ShipmentRequestBuilderInterface
+    public function setLabelFormat(string $labelFormat = self::LABEL_FORMAT_PDF): LabelRequestBuilderInterface
     {
         $this->data['labelFormat'] = $labelFormat;
 
         return $this;
     }
 
-    public function setLabelSize(string $labelSize = self::LABEL_SIZE_A6): ShipmentRequestBuilderInterface
+    public function setLabelSize(string $labelSize = self::LABEL_SIZE_A6): LabelRequestBuilderInterface
     {
         $this->data['labelSize'] = $labelSize;
 
         return $this;
     }
 
-    public function create()
+    public function create(): \JsonSerializable
     {
         ShipmentRequestValidator::validate($this->data);
 
@@ -268,7 +272,7 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
             if ($isReturnLabelRequested) {
                 $services[] = new Service('shopreturnservice');
 
-                $returnParcel = new Parcel($parcelData['weight']);
+                $returnParcel = new ReturnParcel($parcelData['weight']);
                 if (!empty($parcelData['returnReference'])) {
                     $returnParcel->setReferences([$parcelData['returnReference']]);
                 }
@@ -375,6 +379,10 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
 
         if (isset($this->data['shipmentDetails'], $this->data['shipmentDetails']['date'])) {
             $request->setShipmentDate($this->data['shipmentDetails']['date']);
+        }
+
+        if (isset($this->data['shipmentDetails'], $this->data['shipmentDetails']['references'])) {
+            $request->setReferences($this->data['shipmentDetails']['references']);
         }
 
         if (isset($this->data['customsDetails'], $this->data['customsDetails']['incoterm'])) {

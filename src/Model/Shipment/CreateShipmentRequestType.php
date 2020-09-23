@@ -79,6 +79,12 @@ class CreateShipmentRequestType implements \JsonSerializable
      */
     private $labelSize;
 
+    /**
+     * CreateShipmentRequestType constructor.
+     *
+     * @param string $shipperId
+     * @param Parcel[] $parcels
+     */
     public function __construct(string $shipperId, array $parcels)
     {
         $this->shipperId = $shipperId;
@@ -146,6 +152,9 @@ class CreateShipmentRequestType implements \JsonSerializable
         $this->labelSize = $labelSize;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function jsonSerialize(): array
     {
         return [

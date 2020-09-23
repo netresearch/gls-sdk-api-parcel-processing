@@ -33,6 +33,9 @@ class Service implements \JsonSerializable
         $this->infos = $infos;
     }
 
+    /**
+     * @return string[]|ServiceInfo[][]
+     */
     public function jsonSerialize(): array
     {
         return get_object_vars($this);

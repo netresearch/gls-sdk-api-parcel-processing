@@ -26,6 +26,9 @@ class ServiceInfo implements \JsonSerializable
         $this->value = $value;
     }
 
+    /**
+     * @return string[]
+     */
     public function jsonSerialize(): array
     {
         return get_object_vars($this);

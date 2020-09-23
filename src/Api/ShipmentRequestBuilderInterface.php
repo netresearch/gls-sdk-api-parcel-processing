@@ -13,30 +13,8 @@ use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
 /**
  * @api
  */
-interface ShipmentRequestBuilderInterface
+interface ShipmentRequestBuilderInterface extends LabelRequestBuilderInterface
 {
-    public const LABEL_FORMAT_PDF = 'PDF';
-    public const LABEL_FORMAT_PNG = 'PNG';
-    public const LABEL_SIZE_A6 = 'A6';
-    public const LABEL_SIZE_A5 = 'A5';
-    public const LABEL_SIZE_A4 = 'A4';
-
-    /**
-     * @param string $shipperId Customer ID / Contact ID as provided by depot or given in the GLS account settings
-     * @param string|null $brokerReference Reference to the GLS Partner (optional)
-     * @return ShipmentRequestBuilderInterface
-     */
-    public function setShipperAccount(
-        string $shipperId,
-        string $brokerReference = null
-    ): ShipmentRequestBuilderInterface;
-
-    /**
-     * @param string[] $references The customer given reference numbers for all parcels created (optional)
-     * @return ShipmentRequestBuilderInterface
-     */
-    public function setReferenceNumbers(array $references): ShipmentRequestBuilderInterface;
-
     /**
      * @param \DateTime $shipmentDate Date of shipment (optional, defaults to current date)
      * @return ShipmentRequestBuilderInterface
@@ -195,16 +173,6 @@ interface ShipmentRequestBuilderInterface
     public function requestFlexDeliveryService(): ShipmentRequestBuilderInterface;
 
     /**
-     * Set the International Commercial Terms (Incoterm) code.
-     *
-     * For valid values, refer to the GLS documentation.
-     *
-     * @param int $incoterm
-     * @return ShipmentRequestBuilderInterface
-     */
-    public function setCustomsDetails(int $incoterm): ShipmentRequestBuilderInterface;
-
-    /**
      * Add a parcel to the shipment.
      *
      * @param float $weightInKg
@@ -225,26 +193,10 @@ interface ShipmentRequestBuilderInterface
     ): ShipmentRequestBuilderInterface;
 
     /**
-     * Set label format. By default, a PDF label will be created.
-     *
-     * @param string $labelFormat
-     * @return ShipmentRequestBuilderInterface
-     */
-    public function setLabelFormat(string $labelFormat = self::LABEL_FORMAT_PDF): ShipmentRequestBuilderInterface;
-
-    /**
-     * Change label size. By default, an A6 label will be created.
-     *
-     * @param string $labelSize
-     * @return ShipmentRequestBuilderInterface
-     */
-    public function setLabelSize(string $labelSize = self::LABEL_SIZE_A6): ShipmentRequestBuilderInterface;
-
-    /**
      * Create the shipment request and reset the builder data.
      *
      * @return \JsonSerializable
      * @throws RequestValidatorException
      */
-    public function create();
+    public function create(): \JsonSerializable;
 }

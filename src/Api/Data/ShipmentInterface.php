@@ -13,11 +13,40 @@ namespace GlsGermany\Sdk\ParcelProcessing\Api\Data;
  */
 interface ShipmentInterface
 {
+    /**
+     * @param string[] $labels
+     */
+    public function setLabels(array $labels): void;
+
+    /**
+     * @param string[] $qrCodes
+     */
+    public function setQrCodes(array $qrCodes): void;
+
+    /**
+     * @param ParcelInterface[] $returnParcels
+     */
+    public function setReturnParcels(array $returnParcels): void;
+
+    /**
+     * @return string
+     */
     public function getLocation(): string;
 
+    /**
+     * @return string
+     */
     public function getConsignmentId(): string;
 
-    public function getLabel(): string;
+    /**
+     * @return string[]
+     */
+    public function getLabels(): array;
+
+    /**
+     * @return string[]
+     */
+    public function getQrCodes(): array;
 
     /**
      * @return ParcelInterface[]

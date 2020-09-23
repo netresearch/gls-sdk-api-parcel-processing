@@ -33,6 +33,11 @@ class CreateShipmentResponseType
     private $labels;
 
     /**
+     * @var string[]
+     */
+    private $qrCodes;
+
+    /**
      * @var \GlsGermany\Sdk\ParcelProcessing\Model\Shipment\ResponseType\Parcel[]
      */
     private $parcels;
@@ -64,6 +69,14 @@ class CreateShipmentResponseType
     public function getLabels(): array
     {
         return $this->labels ?? [];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getQrCodes(): array
+    {
+        return $this->qrCodes ?? [];
     }
 
     /**

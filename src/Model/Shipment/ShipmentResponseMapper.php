@@ -38,11 +38,8 @@ class ShipmentResponseMapper
         );
 
         $shipment->setReturnParcels($returnParcels);
-
-        $b64Labels = $apiShipment->getLabels();
-        if (!empty($b64Labels)) {
-            $shipment->setLabel(base64_decode($b64Labels[0]));
-        }
+        $shipment->setLabels(array_filter(array_map('base64_decode', $apiShipment->getLabels())));
+        $shipment->setQrCodes(array_filter(array_map('base64_decode', $apiShipment->getQrCodes())));
 
         return $shipment;
     }

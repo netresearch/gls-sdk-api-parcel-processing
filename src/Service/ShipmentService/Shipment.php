@@ -29,14 +29,19 @@ class Shipment implements ShipmentInterface
     private $parcels;
 
     /**
-     * @var string|null
-     */
-    private $label;
-
-    /**
      * @var ParcelInterface[]
      */
     private $returnParcels;
+
+    /**
+     * @var string[]
+     */
+    private $labels;
+
+    /**
+     * @var string[]
+     */
+    private $qrCodes;
 
     /**
      * Shipment constructor.
@@ -54,59 +59,50 @@ class Shipment implements ShipmentInterface
         $this->parcels = $parcels;
 
         $this->returnParcels = [];
+        $this->labels = [];
+        $this->qrCodes = [];
     }
 
-    /**
-     * @param string $label
-     */
-    public function setLabel(string $label): void
+    public function setLabels(array $labels): void
     {
-        $this->label = $label;
+        $this->labels = $labels;
     }
 
-    /**
-     * @param ParcelInterface[] $returnParcels
-     */
+    public function setQrCodes(array $qrCodes): void
+    {
+        $this->qrCodes = $qrCodes;
+    }
+
     public function setReturnParcels(array $returnParcels): void
     {
         $this->returnParcels = $returnParcels;
     }
 
-    /**
-     * @return string
-     */
     public function getLocation(): string
     {
         return $this->location;
     }
 
-    /**
-     * @return string
-     */
     public function getConsignmentId(): string
     {
         return $this->consignmentId;
     }
 
-    /**
-     * @return string
-     */
-    public function getLabel(): string
+    public function getLabels(): array
     {
-        return (string) $this->label;
+        return $this->labels;
     }
 
-    /**
-     * @return ParcelInterface[]
-     */
+    public function getQrCodes(): array
+    {
+        return $this->qrCodes;
+    }
+
     public function getParcels(): array
     {
         return $this->parcels;
     }
 
-    /**
-     * @return ParcelInterface[]
-     */
     public function getReturnParcels(): array
     {
         return $this->returnParcels;

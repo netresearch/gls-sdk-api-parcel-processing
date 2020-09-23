@@ -143,6 +143,9 @@ class Address implements \JsonSerializable
         $this->comments = $comments;
     }
 
+    /**
+     * @return string[]
+     */
     public function jsonSerialize(): array
     {
         return get_object_vars($this);

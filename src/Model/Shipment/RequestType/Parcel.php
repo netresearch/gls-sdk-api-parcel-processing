@@ -56,6 +56,9 @@ class Parcel implements \JsonSerializable
         $this->services = $services;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function jsonSerialize(): array
     {
         return get_object_vars($this);
