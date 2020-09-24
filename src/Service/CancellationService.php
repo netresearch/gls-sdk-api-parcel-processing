@@ -119,4 +119,35 @@ class CancellationService implements CancellationServiceInterface
 
         return array_reduce($cancelled, 'array_merge', []);
     }
+
+    public function cancelParcel(string $parcelId): string
+    {
+        $uri = sprintf('%s%s/parcelids/%s', $this->baseUrl, self::RESOURCE, $parcelId);
+
+        try {
+            $httpRequest = $this->requestFactory->createRequest('PUT', $uri);
+            $response = $this->client->sendRequest($httpRequest);
+            $responseJson = (string) $response->getBody();
+
+            /** @var CancelParcelsResponseType $cancellationResponse */
+            $cancellationResponse = $this->serializer->decode($responseJson, CancelParcelsResponseType::class);
+        } catch (DetailedErrorException $exception) {
+            if ($exception->getCode() === 401) {
+                throw ServiceExceptionFactory::createAuthenticationException($exception);
+            }
+
+            throw ServiceExceptionFactory::createDetailedServiceException($exception);
+        } catch (\Throwable $exception) {
+            throw ServiceExceptionFactory::create($exception);
+        }
+
+        $statuses = $cancellationResponse->getStatus();
+        $status = array_shift($statuses);
+        if ($status->getCode() !== 'E000') {
+            $message = sprintf('[%s] %s: %s', $status->getCode(), $status->getParcelId(), $status->getInfo());
+            throw new DetailedServiceException($message);
+        }
+
+        return $status->getParcelId();
+    }
 }

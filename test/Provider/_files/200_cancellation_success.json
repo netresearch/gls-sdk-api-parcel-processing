@@ -1,0 +1,10 @@
+{
+  "status": [
+    {
+      "parcelId": "12345678901",
+      "deliveryState": "PREADVICE",
+      "code": "E000",
+      "info": "Cancelled successfully."
+    }
+  ]
+}

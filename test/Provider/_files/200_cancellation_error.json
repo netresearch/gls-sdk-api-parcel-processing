@@ -1,0 +1,9 @@
+{
+  "status": [
+    {
+      "parcelId": "2345678",
+      "code": "E001",
+      "info": "Invalid Parcel Id."
+    }
+  ]
+}
