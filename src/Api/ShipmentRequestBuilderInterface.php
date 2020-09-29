@@ -173,6 +173,21 @@ interface ShipmentRequestBuilderInterface extends LabelRequestBuilderInterface
     public function requestFlexDeliveryService(): ShipmentRequestBuilderInterface;
 
     /**
+     * Book Guaranteed24Service.
+     *
+     * @return ShipmentRequestBuilderInterface
+     */
+    public function requestNextDayDelivery(): ShipmentRequestBuilderInterface;
+
+    /**
+     * Book DepositService. To book LetterBox service, pass "letterbox" as argument.
+     *
+     * @param string $placeOfDeposit
+     * @return ShipmentRequestBuilderInterface
+     */
+    public function setPlaceOfDeposit(string $placeOfDeposit): ShipmentRequestBuilderInterface;
+
+    /**
      * Add a parcel to the shipment.
      *
      * @param float $weightInKg

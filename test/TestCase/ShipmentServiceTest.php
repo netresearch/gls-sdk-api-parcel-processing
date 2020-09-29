@@ -31,6 +31,8 @@ class ShipmentServiceTest extends TestCase
             'standard' => ShipmentServiceTestProvider::standardLabel(),
             'cod' => ShipmentServiceTestProvider::codLabel(),
             'flex-delivery' => ShipmentServiceTestProvider::flexDeliveryLabel(),
+            'deposit' => ShipmentServiceTestProvider::depositLabel(),
+            'next-day' => ShipmentServiceTestProvider::nextDayLabel(),
             'multi-piece' => ShipmentServiceTestProvider::multiPieceLabel(),
             'enclosed-return' => ShipmentServiceTestProvider::enclosedReturnLabel(),
             'parcel-shop' => ShipmentServiceTestProvider::shopDeliveryLabel(),

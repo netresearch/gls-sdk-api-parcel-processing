@@ -81,7 +81,7 @@ class ShipmentServiceTestProvider
     }
 
     /**
-     * Provide request/response for a domestic label request with COD service.
+     * Provide request/response for a domestic label request with flex delivery service.
      *
      * @return CreateShipmentResponseType[]|string[]|callable[]
      * @throws RequestValidatorException
@@ -101,6 +101,70 @@ class ShipmentServiceTestProvider
         );
         $requestBuilder->requestFlexDeliveryService();
         $requestBuilder->addParcel(0.95);
+
+        $assertionsCallback = function (ShipmentInterface $shipment) {
+            Assert::assertNotEmpty($shipment->getLabels());
+            Assert::assertEmpty($shipment->getQrCodes());
+        };
+
+        return [
+            'request' => $requestBuilder->create(),
+            'response' => \file_get_contents(__DIR__ . '/_files/201_standard_label.json'),
+            'assertions' => $assertionsCallback,
+        ];
+    }
+
+    /**
+     * Provide request/response for a domestic label request with deposit service.
+     *
+     * @return CreateShipmentResponseType[]|string[]|callable[]
+     * @throws RequestValidatorException
+     */
+    public static function depositLabel()
+    {
+        $requestBuilder = new ShipmentRequestBuilder();
+        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setRecipientAddress(
+            $country = 'DE',
+            $postalCode = '04229',
+            $city = 'Leipzig',
+            $street = 'Nonnenstraße 11d',
+            $name = 'Christoph Aßmann'
+        );
+        $requestBuilder->addParcel(0.95);
+        $requestBuilder->setPlaceOfDeposit('Garage');
+
+        $assertionsCallback = function (ShipmentInterface $shipment) {
+            Assert::assertNotEmpty($shipment->getLabels());
+            Assert::assertEmpty($shipment->getQrCodes());
+        };
+
+        return [
+            'request' => $requestBuilder->create(),
+            'response' => \file_get_contents(__DIR__ . '/_files/201_standard_label.json'),
+            'assertions' => $assertionsCallback,
+        ];
+    }
+
+    /**
+     * Provide request/response for a domestic label request with guaranteed 24 service.
+     *
+     * @return CreateShipmentResponseType[]|string[]|callable[]
+     * @throws RequestValidatorException
+     */
+    public static function nextDayLabel()
+    {
+        $requestBuilder = new ShipmentRequestBuilder();
+        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setRecipientAddress(
+            $country = 'DE',
+            $postalCode = '04229',
+            $city = 'Leipzig',
+            $street = 'Nonnenstraße 11d',
+            $name = 'Christoph Aßmann'
+        );
+        $requestBuilder->addParcel(0.95);
+        $requestBuilder->requestNextDayDelivery();
 
         $assertionsCallback = function (ShipmentInterface $shipment) {
             Assert::assertNotEmpty($shipment->getLabels());
