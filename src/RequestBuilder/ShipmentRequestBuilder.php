@@ -31,7 +31,7 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         string $brokerReference = null
     ): LabelRequestBuilderInterface {
         $this->data['account']['shipperId'] = $shipperId;
-        $this->data['account']['brokerReference'] = $brokerReference;
+        $this->data['account']['brokerReference'] = $brokerReference ?? '';
 
         return $this;
     }
@@ -252,7 +252,6 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
     {
         ShipmentRequestValidator::validate($this->data);
 
-
         $shipperAddress = $this->data['shipperAddress'] ?? [];
         $recipientAddress = $this->data['recipientAddress'] ?? [];
         $pickupAddress = $this->data['pickupAddress'] ?? [];
@@ -334,6 +333,7 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         }
 
         $request = new CreateShipmentRequestType($this->data['account']['shipperId'], $parcels);
+        $request->setBrokerReference($this->data['account']['brokerReference']);
         $request->setReturnParcels($returnParcels);
 
         if (!empty($shipperAddress)) {
