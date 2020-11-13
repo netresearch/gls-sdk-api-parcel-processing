@@ -6,15 +6,15 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\RequestBuilder;
+namespace GlsGroup\Sdk\ParcelProcessing\RequestBuilder;
 
-use GlsGermany\Sdk\ParcelProcessing\Api\LabelRequestBuilderInterface;
-use GlsGermany\Sdk\ParcelProcessing\Api\ReturnShipmentRequestBuilderInterface;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentRequestType;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Address;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Parcel;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Service;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\ServiceInfo;
+use GlsGroup\Sdk\ParcelProcessing\Api\LabelRequestBuilderInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\ReturnShipmentRequestBuilderInterface;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentRequestType;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType\Address;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType\Parcel;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType\Service;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType\ServiceInfo;
 
 class ReturnShipmentRequestBuilder implements ReturnShipmentRequestBuilderInterface
 {

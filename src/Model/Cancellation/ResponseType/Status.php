@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Model\Cancellation\ResponseType;
+namespace GlsGroup\Sdk\ParcelProcessing\Model\Cancellation\ResponseType;
 
 class Status
 {

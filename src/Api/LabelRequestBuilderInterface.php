@@ -1,6 +1,6 @@
 <?php
 
-namespace GlsGermany\Sdk\ParcelProcessing\Api;
+namespace GlsGroup\Sdk\ParcelProcessing\Api;
 
 interface LabelRequestBuilderInterface
 {

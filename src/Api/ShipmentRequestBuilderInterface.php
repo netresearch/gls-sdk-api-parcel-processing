@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Api;
+namespace GlsGroup\Sdk\ParcelProcessing\Api;
 
-use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\RequestValidatorException;
 
 /**
  * @api

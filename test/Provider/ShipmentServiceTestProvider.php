@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Test\Provider;
+namespace GlsGroup\Sdk\ParcelProcessing\Test\Provider;
 
-use GlsGermany\Sdk\ParcelProcessing\Api\Data\ShipmentInterface;
-use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
-use GlsGermany\Sdk\ParcelProcessing\RequestBuilder\ReturnShipmentRequestBuilder;
-use GlsGermany\Sdk\ParcelProcessing\RequestBuilder\ShipmentRequestBuilder;
+use GlsGroup\Sdk\ParcelProcessing\Api\Data\ShipmentInterface;
+use GlsGroup\Sdk\ParcelProcessing\Exception\RequestValidatorException;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
+use GlsGroup\Sdk\ParcelProcessing\RequestBuilder\ReturnShipmentRequestBuilder;
+use GlsGroup\Sdk\ParcelProcessing\RequestBuilder\ShipmentRequestBuilder;
 use PHPUnit\Framework\Assert;
 
 class ShipmentServiceTestProvider
@@ -26,7 +26,7 @@ class ShipmentServiceTestProvider
     public static function standardLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setRecipientAddress(
             $country = 'DE',
             $postalCode = '04229',
@@ -58,7 +58,7 @@ class ShipmentServiceTestProvider
     public static function codLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setRecipientAddress(
             $country = 'DE',
             $postalCode = '04229',
@@ -89,7 +89,7 @@ class ShipmentServiceTestProvider
     public static function flexDeliveryLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setRecipientAddress(
             $country = 'DE',
             $postalCode = '04229',
@@ -123,7 +123,7 @@ class ShipmentServiceTestProvider
     public static function depositLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setRecipientAddress(
             $country = 'DE',
             $postalCode = '04229',
@@ -155,7 +155,7 @@ class ShipmentServiceTestProvider
     public static function nextDayLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setRecipientAddress(
             $country = 'DE',
             $postalCode = '04229',
@@ -187,12 +187,12 @@ class ShipmentServiceTestProvider
     public static function multiPieceLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setShipperAddress(
             $country = 'DE',
             $postalCode = '36286',
             $city = 'Neuenstein',
-            $street = 'GLS Germany-Straße 1 - 7',
+            $street = 'GLS-Germany-Straße 1 - 7',
             $company = 'GLS Germany'
         );
         $requestBuilder->setRecipientAddress(
@@ -226,7 +226,7 @@ class ShipmentServiceTestProvider
     public static function enclosedReturnLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setRecipientAddress(
             $country = 'DE',
             $postalCode = '04229',
@@ -238,7 +238,7 @@ class ShipmentServiceTestProvider
             $country = 'DE',
             $postalCode = '36286',
             $city = 'Neuenstein',
-            $street = 'GLS Germany-Straße 1 - 7',
+            $street = 'GLS-Germany-Straße 1 - 7',
             $company = 'GLS Germany'
         );
         $requestBuilder->setReferenceNumbers(['1000000606']);
@@ -265,7 +265,7 @@ class ShipmentServiceTestProvider
     public static function shopDeliveryLabel()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setParcelShopId('2760196671');
         $requestBuilder->setRecipientAddress(
             $country = 'DE',
@@ -305,7 +305,7 @@ class ShipmentServiceTestProvider
     public static function pickAndShip()
     {
         $requestBuilder = new ShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setPickupAddress(
             $country = 'DE',
             $postalCode = '04103',
@@ -346,7 +346,7 @@ class ShipmentServiceTestProvider
     public static function pickAndReturn()
     {
         $requestBuilder = new ReturnShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setPickupAddress(
             $country = 'DE',
             $postalCode = '04103',
@@ -384,7 +384,7 @@ class ShipmentServiceTestProvider
     public static function shopReturnQrLabel()
     {
         $requestBuilder = new ReturnShipmentRequestBuilder();
-        $requestBuilder->setShipperAccount('9876543210');
+        $requestBuilder->setShipperAccount('98765 43210');
         $requestBuilder->setShipperAddress(
             $country = 'DE',
             $postalCode = '04229',
@@ -396,7 +396,7 @@ class ShipmentServiceTestProvider
             $country = 'DE',
             $postalCode = '36286',
             $city = 'Neuenstein',
-            $street = 'GLS Germany-Straße 1 - 7',
+            $street = 'GLS-Germany-Straße 1 - 7',
             $company = 'GLS Germany'
         );
         $requestBuilder->addParcel(0.95, true);

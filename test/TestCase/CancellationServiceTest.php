@@ -6,11 +6,11 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Service;
+namespace GlsGroup\Sdk\ParcelProcessing\Service;
 
-use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedServiceException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceException;
-use GlsGermany\Sdk\ParcelProcessing\Http\HttpServiceFactory;
+use GlsGroup\Sdk\ParcelProcessing\Exception\DetailedServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Http\HttpServiceFactory;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Mock\Client;
 use PHPUnit\Framework\TestCase;

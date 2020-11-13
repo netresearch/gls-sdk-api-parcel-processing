@@ -6,17 +6,17 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Http;
+namespace GlsGroup\Sdk\ParcelProcessing\Http;
 
-use GlsGermany\Sdk\ParcelProcessing\Api\CancellationServiceInterface;
-use GlsGermany\Sdk\ParcelProcessing\Api\ServiceFactoryInterface;
-use GlsGermany\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
-use GlsGermany\Sdk\ParcelProcessing\Http\ClientPlugin\ErrorPlugin;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\ShipmentResponseMapper;
-use GlsGermany\Sdk\ParcelProcessing\Serializer\JsonSerializer;
-use GlsGermany\Sdk\ParcelProcessing\Service\CancellationService;
-use GlsGermany\Sdk\ParcelProcessing\Service\ShipmentService;
+use GlsGroup\Sdk\ParcelProcessing\Api\CancellationServiceInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\ServiceFactoryInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
+use GlsGroup\Sdk\ParcelProcessing\Http\ClientPlugin\ErrorPlugin;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\ShipmentResponseMapper;
+use GlsGroup\Sdk\ParcelProcessing\Serializer\JsonSerializer;
+use GlsGroup\Sdk\ParcelProcessing\Service\CancellationService;
+use GlsGroup\Sdk\ParcelProcessing\Service\ShipmentService;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
 use Http\Client\Common\Plugin\ContentLengthPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;

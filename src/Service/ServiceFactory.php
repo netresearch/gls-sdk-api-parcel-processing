@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Service;
+namespace GlsGroup\Sdk\ParcelProcessing\Service;
 
-use GlsGermany\Sdk\ParcelProcessing\Api\CancellationServiceInterface;
-use GlsGermany\Sdk\ParcelProcessing\Api\ServiceFactoryInterface;
-use GlsGermany\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
-use GlsGermany\Sdk\ParcelProcessing\Http\HttpServiceFactory;
+use GlsGroup\Sdk\ParcelProcessing\Api\CancellationServiceInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\ServiceFactoryInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
+use GlsGroup\Sdk\ParcelProcessing\Http\HttpServiceFactory;
 use Http\Discovery\Exception\NotFoundException;
 use Http\Discovery\HttpClientDiscovery;
 use Psr\Log\LoggerInterface;

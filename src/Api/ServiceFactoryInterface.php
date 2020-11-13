@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Api;
+namespace GlsGroup\Sdk\ParcelProcessing\Api;
 
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceException;
 use Psr\Log\LoggerInterface;
 
 /**

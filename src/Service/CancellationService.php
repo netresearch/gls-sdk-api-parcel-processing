@@ -6,17 +6,17 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Service;
+namespace GlsGroup\Sdk\ParcelProcessing\Service;
 
-use GlsGermany\Sdk\ParcelProcessing\Api\CancellationServiceInterface;
-use GlsGermany\Sdk\ParcelProcessing\Exception\AuthenticationException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedErrorException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedServiceException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
-use GlsGermany\Sdk\ParcelProcessing\Model\Cancellation\CancelParcelsResponseType;
-use GlsGermany\Sdk\ParcelProcessing\Model\Cancellation\ResponseType\Status;
-use GlsGermany\Sdk\ParcelProcessing\Serializer\JsonSerializer;
+use GlsGroup\Sdk\ParcelProcessing\Api\CancellationServiceInterface;
+use GlsGroup\Sdk\ParcelProcessing\Exception\AuthenticationException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\DetailedErrorException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\DetailedServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
+use GlsGroup\Sdk\ParcelProcessing\Model\Cancellation\CancelParcelsResponseType;
+use GlsGroup\Sdk\ParcelProcessing\Model\Cancellation\ResponseType\Status;
+use GlsGroup\Sdk\ParcelProcessing\Serializer\JsonSerializer;
 use Http\Client\HttpClient;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;

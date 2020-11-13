@@ -6,11 +6,11 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Api;
+namespace GlsGroup\Sdk\ParcelProcessing\Api;
 
-use GlsGermany\Sdk\ParcelProcessing\Exception\AuthenticationException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedServiceException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\AuthenticationException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\DetailedServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceException;
 
 /**
  * @api

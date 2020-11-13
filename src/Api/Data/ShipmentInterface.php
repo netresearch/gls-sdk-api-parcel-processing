@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Api\Data;
+namespace GlsGroup\Sdk\ParcelProcessing\Api\Data;
 
 /**
  * @api

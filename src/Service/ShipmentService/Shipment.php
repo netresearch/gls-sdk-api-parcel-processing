@@ -6,10 +6,10 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Service\ShipmentService;
+namespace GlsGroup\Sdk\ParcelProcessing\Service\ShipmentService;
 
-use GlsGermany\Sdk\ParcelProcessing\Api\Data\ParcelInterface;
-use GlsGermany\Sdk\ParcelProcessing\Api\Data\ShipmentInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\Data\ParcelInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\Data\ShipmentInterface;
 
 class Shipment implements ShipmentInterface
 {

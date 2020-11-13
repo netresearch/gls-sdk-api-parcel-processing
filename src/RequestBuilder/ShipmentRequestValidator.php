@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\RequestBuilder;
+namespace GlsGroup\Sdk\ParcelProcessing\RequestBuilder;
 
-use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\RequestValidatorException;
 
 class ShipmentRequestValidator
 {

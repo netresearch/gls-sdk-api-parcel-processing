@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Model\Shipment\ResponseType;
+namespace GlsGroup\Sdk\ParcelProcessing\Model\Shipment\ResponseType;
 
 class Parcel
 {

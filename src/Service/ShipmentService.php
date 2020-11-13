@@ -6,15 +6,15 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Service;
+namespace GlsGroup\Sdk\ParcelProcessing\Service;
 
-use GlsGermany\Sdk\ParcelProcessing\Api\Data\ShipmentInterface;
-use GlsGermany\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
-use GlsGermany\Sdk\ParcelProcessing\Exception\DetailedErrorException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\ShipmentResponseMapper;
-use GlsGermany\Sdk\ParcelProcessing\Serializer\JsonSerializer;
+use GlsGroup\Sdk\ParcelProcessing\Api\Data\ShipmentInterface;
+use GlsGroup\Sdk\ParcelProcessing\Api\ShipmentServiceInterface;
+use GlsGroup\Sdk\ParcelProcessing\Exception\DetailedErrorException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceExceptionFactory;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\ShipmentResponseMapper;
+use GlsGroup\Sdk\ParcelProcessing\Serializer\JsonSerializer;
 use Http\Client\HttpClient;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;

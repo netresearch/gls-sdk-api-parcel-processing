@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Exception;
+namespace GlsGroup\Sdk\ParcelProcessing\Exception;
 
 use Http\Client\Exception as HttpClientException;
 

@@ -6,14 +6,14 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Service;
+namespace GlsGroup\Sdk\ParcelProcessing\Service;
 
-use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
-use GlsGermany\Sdk\ParcelProcessing\Exception\ServiceException;
-use GlsGermany\Sdk\ParcelProcessing\Http\HttpServiceFactory;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentRequestType;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
-use GlsGermany\Sdk\ParcelProcessing\Test\Provider\ShipmentServiceTestProvider;
+use GlsGroup\Sdk\ParcelProcessing\Exception\RequestValidatorException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\ServiceException;
+use GlsGroup\Sdk\ParcelProcessing\Http\HttpServiceFactory;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentRequestType;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\CreateShipmentResponseType;
+use GlsGroup\Sdk\ParcelProcessing\Test\Provider\ShipmentServiceTestProvider;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Mock\Client;
 use PHPUnit\Framework\TestCase;

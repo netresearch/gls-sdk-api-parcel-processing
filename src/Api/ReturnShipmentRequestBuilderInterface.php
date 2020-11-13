@@ -1,8 +1,8 @@
 <?php
 
-namespace GlsGermany\Sdk\ParcelProcessing\Api;
+namespace GlsGroup\Sdk\ParcelProcessing\Api;
 
-use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
+use GlsGroup\Sdk\ParcelProcessing\Exception\RequestValidatorException;
 
 interface ReturnShipmentRequestBuilderInterface extends LabelRequestBuilderInterface
 {

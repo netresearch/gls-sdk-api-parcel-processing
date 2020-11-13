@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType;
+namespace GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType;
 
 class Parcel implements \JsonSerializable
 {

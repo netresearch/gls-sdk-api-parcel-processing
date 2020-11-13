@@ -6,11 +6,11 @@
 
 declare(strict_types=1);
 
-namespace GlsGermany\Sdk\ParcelProcessing\Model\Shipment;
+namespace GlsGroup\Sdk\ParcelProcessing\Model\Shipment;
 
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Address;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\Parcel;
-use GlsGermany\Sdk\ParcelProcessing\Model\Shipment\RequestType\ReturnParcel;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType\Address;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType\Parcel;
+use GlsGroup\Sdk\ParcelProcessing\Model\Shipment\RequestType\ReturnParcel;
 
 class CreateShipmentRequestType implements \JsonSerializable
 {
