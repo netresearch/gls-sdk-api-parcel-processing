@@ -43,12 +43,18 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
         return $this;
     }
 
-    public function setShipmentDate(\DateTime $shipmentDate): ShipmentRequestBuilderInterface
+    public function setShipmentDate(\DateTimeInterface $shipmentDate): ShipmentRequestBuilderInterface
     {
         $timezone = new \DateTimeZone('Europe/Berlin');
-        $convertDate = $shipmentDate->setTimezone($timezone)->format('Y-m-d');
 
-        $this->data['shipmentDetails']['date'] = $convertDate;
+        if ($shipmentDate instanceof \DateTime) {
+            $shipmentDate = \DateTimeImmutable::createFromMutable($shipmentDate);
+            $shipmentDate = $shipmentDate->setTimezone($timezone);
+        } elseif ($shipmentDate instanceof \DateTimeImmutable) {
+            $shipmentDate = $shipmentDate->setTimezone($timezone);
+        }
+
+        $this->data['shipmentDetails']['date'] = $shipmentDate->format('Y-m-d');
 
         return $this;
     }

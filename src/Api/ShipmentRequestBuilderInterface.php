@@ -16,10 +16,10 @@ use GlsGermany\Sdk\ParcelProcessing\Exception\RequestValidatorException;
 interface ShipmentRequestBuilderInterface extends LabelRequestBuilderInterface
 {
     /**
-     * @param \DateTime $shipmentDate Date of shipment (optional, defaults to current date)
+     * @param \DateTimeInterface $shipmentDate Date of shipment (optional, defaults to current date)
      * @return ShipmentRequestBuilderInterface
      */
-    public function setShipmentDate(\DateTime $shipmentDate): ShipmentRequestBuilderInterface;
+    public function setShipmentDate(\DateTimeInterface $shipmentDate): ShipmentRequestBuilderInterface;
 
     /**
      * Provide an alternative/customized shipper address.
