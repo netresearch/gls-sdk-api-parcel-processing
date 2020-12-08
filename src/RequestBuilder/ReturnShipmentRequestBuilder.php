@@ -30,7 +30,7 @@ class ReturnShipmentRequestBuilder implements ReturnShipmentRequestBuilderInterf
         string $brokerReference = null
     ): LabelRequestBuilderInterface {
         $this->data['account']['shipperId'] = $shipperId;
-        $this->data['account']['brokerReference'] = $brokerReference;
+        $this->data['account']['brokerReference'] = $brokerReference ?? '';
 
         return $this;
     }
@@ -204,6 +204,7 @@ class ReturnShipmentRequestBuilder implements ReturnShipmentRequestBuilderInterf
         }
 
         $request = new CreateShipmentRequestType($this->data['account']['shipperId'], $parcels);
+        $request->setBrokerReference($this->data['account']['brokerReference']);
 
         if ($isShopReturn) {
             // shop return: package brought to parcel shop
