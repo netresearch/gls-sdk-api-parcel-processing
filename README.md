@@ -9,7 +9,7 @@ The GLS Parcel Processing API SDK package offers an interface to the following w
 
 ### System Requirements
 
-- PHP 7.1+ with JSON extension
+- PHP 7.2+ with JSON extension
 
 ### Package Requirements
 

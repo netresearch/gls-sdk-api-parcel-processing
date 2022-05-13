@@ -19,7 +19,6 @@ use GlsGroup\Sdk\ParcelProcessing\Model\Cancellation\ResponseType\Status;
 use GlsGroup\Sdk\ParcelProcessing\Serializer\JsonSerializer;
 use Http\Client\HttpClient;
 use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
 
 class CancellationService implements CancellationServiceInterface
 {
@@ -45,23 +44,16 @@ class CancellationService implements CancellationServiceInterface
      */
     private $requestFactory;
 
-    /**
-     * @var StreamFactoryInterface
-     */
-    private $streamFactory;
-
     public function __construct(
         HttpClient $client,
         string $baseUrl,
         JsonSerializer $serializer,
-        RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory
+        RequestFactoryInterface $requestFactory
     ) {
         $this->client = $client;
         $this->baseUrl = $baseUrl;
         $this->serializer = $serializer;
         $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
     }
 
     /**

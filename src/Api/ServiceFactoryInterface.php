@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
  */
 interface ServiceFactoryInterface
 {
-    public const SANDBOX_BASE_URL = 'https://api-qs.gls-group.eu/';
+    public const SANDBOX_BASE_URL = 'https://api-qs1.gls-group.eu/';
     public const PRODUCTION_BASE_URL = 'https://api.gls-group.eu/';
 
     /**

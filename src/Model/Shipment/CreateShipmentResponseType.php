@@ -28,12 +28,12 @@ class CreateShipmentResponseType
     private $consignmentId;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     private $labels;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     private $qrCodes;
 
@@ -43,7 +43,7 @@ class CreateShipmentResponseType
     private $parcels;
 
     /**
-     * @var \GlsGroup\Sdk\ParcelProcessing\Model\Shipment\ResponseType\Parcel[]
+     * @var \GlsGroup\Sdk\ParcelProcessing\Model\Shipment\ResponseType\Parcel[]|null
      */
     private $returns;
 

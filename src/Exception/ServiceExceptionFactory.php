@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace GlsGroup\Sdk\ParcelProcessing\Exception;
 
-use Http\Client\Exception as HttpClientException;
-
 class ServiceExceptionFactory
 {
     /**
@@ -21,21 +19,6 @@ class ServiceExceptionFactory
     public static function create(\Throwable $exception): ServiceException
     {
         return new ServiceException($exception->getMessage(), $exception->getCode(), $exception);
-    }
-
-    /**
-     * Create a HTTP client exception.
-     *
-     * @param HttpClientException $exception
-     * @return ServiceException
-     */
-    public static function createServiceException(HttpClientException $exception): ServiceException
-    {
-        if (!$exception instanceof \Throwable) {
-            return new ServiceException('Unknown exception occurred', 0);
-        }
-
-        return self::create($exception);
     }
 
     /**

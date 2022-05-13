@@ -118,7 +118,6 @@ class HttpServiceFactory implements ServiceFactoryInterface
 
         try {
             $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
-            $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
         } catch (NotFoundException $exception) {
             throw ServiceExceptionFactory::create($exception);
         }
@@ -127,8 +126,7 @@ class HttpServiceFactory implements ServiceFactoryInterface
             $client,
             $sandboxMode ? self::SANDBOX_BASE_URL : self::PRODUCTION_BASE_URL,
             new JsonSerializer(),
-            $requestFactory,
-            $streamFactory
+            $requestFactory
         );
     }
 }

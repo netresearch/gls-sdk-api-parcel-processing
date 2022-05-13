@@ -286,7 +286,7 @@ class ShipmentRequestBuilder implements ShipmentRequestBuilderInterface
                     new ServiceInfo('amount', (string) $parcelData['codAmount'])
                 ];
                 if (!empty($parcelData['codReference'])) {
-                    $codInfo[] = new ServiceInfo('reference', $parcelData['codReference'] ?? '');
+                    $codInfo[] = new ServiceInfo('reference', $parcelData['codReference']);
                 }
                 $codService = new Service('cashondelivery');
                 $codService->setServiceInfo($codInfo);

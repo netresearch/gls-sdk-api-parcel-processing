@@ -38,7 +38,7 @@ final class ErrorPlugin implements Plugin
      *
      * @param int $statusCode The response status code
      * @param string $reasonPhrase The response reason phrase
-     * @param string[][] $responseData The error response data
+     * @param string[][][] $responseData The error response data
      * @return string
      */
     private function formatErrorMessage(int $statusCode, string $reasonPhrase, array $responseData): string

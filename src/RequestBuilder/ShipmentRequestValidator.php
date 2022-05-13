@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace GlsGroup\Sdk\ParcelProcessing\RequestBuilder;
 
+use GlsGroup\Sdk\ParcelProcessing\Api\LabelRequestBuilderInterface;
 use GlsGroup\Sdk\ParcelProcessing\Exception\RequestValidatorException;
 
 class ShipmentRequestValidator
@@ -52,9 +53,9 @@ class ShipmentRequestValidator
 
         if (isset($data['labelSize'])) {
             $labelSizes = [
-                ShipmentRequestBuilder::LABEL_SIZE_A6,
-                ShipmentRequestBuilder::LABEL_SIZE_A5,
-                ShipmentRequestBuilder::LABEL_SIZE_A4,
+                LabelRequestBuilderInterface::LABEL_SIZE_A6,
+                LabelRequestBuilderInterface::LABEL_SIZE_A5,
+                LabelRequestBuilderInterface::LABEL_SIZE_A4,
             ];
 
             if (!in_array($data['labelSize'], $labelSizes)) {
@@ -64,8 +65,8 @@ class ShipmentRequestValidator
 
         if (isset($data['labelFormat'])) {
             $labelFormats = [
-                ShipmentRequestBuilder::LABEL_FORMAT_PDF,
-                ShipmentRequestBuilder::LABEL_FORMAT_PNG,
+                LabelRequestBuilderInterface::LABEL_FORMAT_PDF,
+                LabelRequestBuilderInterface::LABEL_FORMAT_PNG,
             ];
 
             if (!in_array($data['labelFormat'], $labelFormats)) {

@@ -18,7 +18,7 @@ namespace GlsGroup\Sdk\ParcelProcessing\Model\Cancellation;
 class CancelParcelsResponseType
 {
     /**
-     * @var \GlsGroup\Sdk\ParcelProcessing\Model\Cancellation\ResponseType\Status[]
+     * @var \GlsGroup\Sdk\ParcelProcessing\Model\Cancellation\ResponseType\Status[]|null
      */
     private $status;
 
