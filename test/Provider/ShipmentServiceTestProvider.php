@@ -32,7 +32,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->setReferenceNumbers(['1000000302']);
         $requestBuilder->addParcel(0.95, '1000000302-A');
@@ -64,7 +64,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->addParcel(0.95, null, null, 34.99, 'Order #1000000303');
 
@@ -95,9 +95,9 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann',
+            $name = 'Hans Muster',
             null,
-            $email = 'christoph.assmann@netresearch.de'
+            $email = 'h.muster@gmx.de'
         );
         $requestBuilder->requestFlexDeliveryService();
         $requestBuilder->addParcel(0.95);
@@ -129,7 +129,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->addParcel(0.95);
         $requestBuilder->setPlaceOfDeposit('Garage');
@@ -161,7 +161,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->addParcel(0.95);
         $requestBuilder->requestNextDayDelivery();
@@ -200,7 +200,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->addParcel(0.95);
         $requestBuilder->addParcel(1.30);
@@ -232,7 +232,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->setReturnAddress(
             $country = 'DE',
@@ -272,12 +272,12 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann',
+            $name = 'Hans Muster',
             null,
-            $email = 'christoph.assmann@netresearch.de',
+            $email = 'h.muster@gmx.de',
             null,
             null,
-            $contactPerson = 'Christoph Aßmann'
+            $contactPerson = 'Hans Muster'
         );
         $requestBuilder->addParcel(0.95);
 
@@ -318,7 +318,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->addParcel(0.95);
 
@@ -359,7 +359,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->addParcel(0.95);
 
@@ -390,7 +390,7 @@ class ShipmentServiceTestProvider
             $postalCode = '04229',
             $city = 'Leipzig',
             $street = 'Nonnenstraße 11d',
-            $name = 'Christoph Aßmann'
+            $name = 'Hans Muster'
         );
         $requestBuilder->setRecipientAddress(
             $country = 'DE',

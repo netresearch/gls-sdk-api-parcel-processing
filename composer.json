@@ -7,14 +7,7 @@
     "sdk",
     "GLS"
   ],
-  "authors": [
-    {
-      "email": "plugins@netresearch.de",
-      "name": "Netresearch DTT GmbH",
-      "role": "Manufacturer",
-      "homepage": "https://www.netresearch.de/"
-    }
-  ],
+  "authors": [],
   "require": {
     "php": "^7.2.0 || ^8.0.0",
     "ext-json": "*",
